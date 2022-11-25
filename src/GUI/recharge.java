@@ -10,13 +10,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.lang.*;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import control.Control;
+import control.rechargecontrol;
 import sql.connectSQL;
+import user.User;
 
 public class recharge extends javax.swing.JFrame {
 		
@@ -27,11 +32,12 @@ public class recharge extends javax.swing.JFrame {
 		JTextField JT1=new JTextField();
 		JButton rec=new JButton();
 		JButton quit=new JButton();
-		
+		private final User old;
 		
 
 		
 		public recharge()throws PropertyVetoException, SQLException {
+			this.old = new User();
 			try {
 	            setDefaultCloseOperation(EXIT_ON_CLOSE);
 	            initComponents();
@@ -39,6 +45,10 @@ public class recharge extends javax.swing.JFrame {
 	            exception.printStackTrace();
 	        }
 	    }
+		
+		public recharge(User old)throws PropertyVetoException, SQLException{
+			this.old=old;
+		}
 		
 		private void initComponents() {
 			welcome_JPanel = (JPanel) getContentPane();
@@ -91,10 +101,21 @@ public class recharge extends javax.swing.JFrame {
 		
 		//充值操作
 		public void recharge_rec_actionPerformed(ActionEvent e) throws PropertyVetoException, SQLException{
+			Control control= rechargecontrol.getInstance();
+			
+			if (JT1.getText().trim().equals("")) {
+	            JOptionPane.showMessageDialog(this, "请输入需要充值的数目！", "提 示", JOptionPane.INFORMATION_MESSAGE);
+	        } else {
+	            try {
+	                control.update(old, new User(JT1.getText().trim()));
+	                JT1.setText("");
+	                JOptionPane.showMessageDialog(this, "充值成功！", "提 示", JOptionPane.INFORMATION_MESSAGE);
+	            } catch (SQLException ex) {
+	                JOptionPane.showMessageDialog(this, "充值失敗！", "提 示", JOptionPane.INFORMATION_MESSAGE);
+	                throw new RuntimeException(ex);
+	            }
 
-			information in=new information();
-			in.setVisible(true);
-			this.dispose();
+	        }
 		}
 		
 }

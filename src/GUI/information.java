@@ -7,10 +7,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import control.Control;
+import control.logincontrol;
+import control.usercontrol;
+import user.Loginuser;
+import user.User;
 
 public class information extends javax.swing.JFrame{
 	
@@ -23,6 +30,7 @@ public class information extends javax.swing.JFrame{
 	JLabel name2=new JLabel();
 	JLabel phone2=new JLabel();
 	JLabel balance2=new JLabel();
+	JLabel pwd2=new JLabel();
 	JButton re=new JButton();
 	JButton quit=new JButton();
 	
@@ -32,7 +40,13 @@ public class information extends javax.swing.JFrame{
         initComponents();
     }
 	
-	private void initComponents() {
+	private void initComponents() throws SQLException, PropertyVetoException {
+		Control control=usercontrol.getInstance();
+		List<User> user = control.read(id1.getText().toString().trim());
+		String id= user.get(0).getUserid();
+		String name= user.get(0).getUsername();
+		String telephone= user.get(0).getUsertelephone();
+		String balance= user.get(0).getUserbalance();
 		
 
 		welcome_JPanel=(JPanel) getContentPane();
@@ -48,10 +62,10 @@ public class information extends javax.swing.JFrame{
 		re.setText("充值");
 		quit.setText("返回");
 		
-		id2.setText("123");
-		name2.setText("123");
-		phone2.setText("123");
-		balance2.setText("123");
+		id2.setText(id);
+		name2.setText(name);
+		phone2.setText(telephone);
+		balance2.setText(balance);
 		
 		id1.setFont(new Font("黑体",Font.BOLD,15));
 		id1.setBounds(new Rectangle(100,100,80,30));
@@ -100,8 +114,8 @@ public class information extends javax.swing.JFrame{
 	}
 	
 public void information_re_actionPerformed(ActionEvent e) throws PropertyVetoException, SQLException{
-		recharge ree=new recharge();
-		ree.setVisible(true);
+		recharge rec = new recharge();
+		rec.setVisible(true);
 		this.dispose();
 	}
 

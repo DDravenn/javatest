@@ -1,7 +1,6 @@
 package GUI;
 
 import user.Loginuser;
-import user.Ticket;
 import user.User;
 import javax.swing.*;
 
@@ -19,6 +18,7 @@ import java.sql.*;
 import java.util.List;
 import control.Control;
 import control.usercontrol;
+import maGUI.MAFrame;
 import control.logincontrol;
 import user.Loginuser;
 
@@ -96,14 +96,19 @@ public class login extends javax.swing.JFrame {
 	        		JOptionPane.showMessageDialog(this, "密码不能为空！","Warning",JOptionPane.INFORMATION_MESSAGE);}
 	        else {
 	            List<Loginuser> loginuser = control.read(new Loginuser(id_textField.getText(), pwd_textField.getText()));
-	            if(id_textField.getText()=="123" && pwd_textField.getText()=="123") {
-	            	
-	            }
-	            else if (loginuser.size() > 0) {
-	                MainFrame ma = new MainFrame();
-	                ma.setVisible(true);
-	                ma.validate();
-	                this.dispose();
+	            	Loginuser u = loginuser.get(0);
+	            	if (loginuser.size() > 0) { //判断取回的数据是否爲空
+	            		if(u.getUserid()=="1122" && u.getUserpassword()=="123") {
+	            			MAFrame me=new MAFrame();
+	            			me.setVisible(true);
+	            			this.dispose();
+	            	}else {
+	            		MainFrame ma = new MainFrame();
+		                ma.setVisible(true);
+		                ma.validate();
+		                this.dispose();
+	            	}
+	                
 	            }else{
 	                JOptionPane.showMessageDialog(this, "用户名或密码错误！", "Warning",
 	                        JOptionPane.INFORMATION_MESSAGE);

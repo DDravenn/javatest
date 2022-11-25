@@ -37,7 +37,7 @@ public class ticketcontrol implements Control{
         ResultSet resultSet = pre.executeQuery();
         while (resultSet.next()) {
             result.add(new buyticket(resultSet.getString("userid"),
-                    resultSet.getInt[]("ticket"),
+                    resultSet.getString("ticket"),
                     resultSet.getString("amount")));
         }
         return result;
@@ -46,10 +46,10 @@ public class ticketcontrol implements Control{
     public void insert(Object o) throws SQLException {
         if (o.getClass() == User.class) {
         	buyticket bytk = (buyticket) o;
-            String sql = "insert into loginuser(userid,userpassword)values(?,?)";
+            String sql = "insert into userticket(userid,ticket,amount)values(?,?,?)";
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, bytk.getUserid());
-            pre.setString(2, bytk.getUserpassword());
+            pre.setInt(2, bytk.getTicket());
             pre.setString(3, bytk.getAmount());
             pre.execute();
         }

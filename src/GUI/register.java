@@ -30,10 +30,12 @@ public class register extends javax.swing.JFrame {
 	JLabel name_JLabel=new JLabel();
 	JLabel pwd_JLabel=new JLabel();
 	JLabel phone_JLabel=new JLabel();
+	JLabel balance_JLabel=new JLabel();
 	JTextField id_textField=new JTextField();
 	JTextField name_textField=new JTextField();
 	JTextField pwd_textField=new JTextField();
 	JTextField phone_textField=new JTextField();
+	JTextField balance_textField=new  JTextField();
 	JButton re_button=new JButton();
 	JButton rn_button=new JButton();
 	JOptionPane point_JOptionPane = new JOptionPane();
@@ -55,26 +57,36 @@ public class register extends javax.swing.JFrame {
 		setSize(new Dimension(400, 500));
 		 setTitle("欢迎注册彩票系统");
 		ix_Panel.setBorder(javax.swing.BorderFactory.createTitledBorder("用户注册界面"));
+		
+		balance_JLabel.setText("余额:");
+		balance_JLabel.setFont(new Font("Dialog",Font.BOLD,15));
+		balance_JLabel.setBounds(new Rectangle(95,240,77,25));
+		
+		balance_textField.setText("0");
+		balance_textField.setFont(new Font("Dialog",Font.BOLD,15));
+		balance_textField.setBounds(new Rectangle(188,240,80,30));
+		balance_textField.setEditable(false);
+		
 		id_JLabel.setText("用户id:");
 		id_JLabel.setFont(new Font("Dialog",Font.BOLD,15));
-		id_JLabel.setBounds(new Rectangle(95, 125, 77, 25));
+		id_JLabel.setBounds(new Rectangle(95, 80, 77, 25));
 		name_JLabel.setText("用户名:");
 		name_JLabel.setFont(new Font("Dialog",Font.BOLD,15));
-		name_JLabel.setBounds(new Rectangle(95, 160, 77, 25));
+		name_JLabel.setBounds(new Rectangle(95, 120, 77, 25));
 		pwd_JLabel.setText("用户密码:");
 		pwd_JLabel.setFont(new Font("Dialog",Font.BOLD,15));
-		pwd_JLabel.setBounds(new Rectangle(95, 195, 77, 25));
+		pwd_JLabel.setBounds(new Rectangle(95, 160, 77, 25));
 		phone_JLabel.setText("手机号码:");
 		phone_JLabel.setFont(new Font("Dialog",Font.BOLD,15));
-		phone_JLabel.setBounds(new Rectangle(95, 230, 77, 25));
+		phone_JLabel.setBounds(new Rectangle(95, 200, 77, 25));
 		id_textField.setFont(new Font("Dialog",Font.PLAIN,15));
-		id_textField.setBounds(new Rectangle(188, 125, 80, 30));
+		id_textField.setBounds(new Rectangle(188, 80, 80, 30));
 		name_textField.setFont(new Font("Dialog",Font.PLAIN,15));
-		name_textField.setBounds(new Rectangle(188, 160, 80, 30));
+		name_textField.setBounds(new Rectangle(188, 120, 80, 30));
 		pwd_textField.setFont(new Font("Dialog",Font.BOLD,15));
-		pwd_textField.setBounds(new Rectangle(188,195,80,30));
+		pwd_textField.setBounds(new Rectangle(188,160,80,30));
 		phone_textField.setFont(new Font("Dialog",Font.BOLD,15));
-		phone_textField.setBounds(new Rectangle(188,230,80,30));
+		phone_textField.setBounds(new Rectangle(188,200,80,30));
 		re_button.setText("注册");
 		re_button.setFont(new Font("Dialog",Font.PLAIN,15));
 		re_button.setBounds(95, 280, 40, 30);
@@ -100,6 +112,8 @@ public class register extends javax.swing.JFrame {
 		ix_Panel.add(re_button);
 		ix_Panel.add(rn_button);
 		ix_Panel.add(point_JOptionPane);
+		ix_Panel.add(balance_JLabel);
+		ix_Panel.add(balance_textField);
 	}
 	
 	public void register_rn_button_actionPerformed(ActionEvent e) throws PropertyVetoException, SQLException{
@@ -140,7 +154,7 @@ public class register extends javax.swing.JFrame {
 
 //注册，将用户添加进数据库中
 	private void insertuser() throws SQLException{
-    User u = new User(id_textField.getText().trim(), name_textField.getText().trim(), pwd_textField.getText().trim(), phone_textField.getText().trim());
+    User u = new User(id_textField.getText().trim(), name_textField.getText().trim(), pwd_textField.getText().trim(), phone_textField.getText().trim(),balance_textField.getText().trim());
     System.out.println(u);
     control.insert(u);
     JOptionPane.showMessageDialog(this, "注册成功", "Warning", JOptionPane.INFORMATION_MESSAGE);

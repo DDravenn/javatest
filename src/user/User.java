@@ -4,7 +4,7 @@ public class User {
 	public String Userid;//用户id
 	public String Username;//用户名称
 	public String Userpassword;//用户密码
-	public int Userbalance=0;//账户余额
+	public String Userbalance;//账户余额
 	public String Usertelephone;//用户电话
 	public String money;//用来充值余额
 	private static int[] notes;//存彩票
@@ -13,11 +13,16 @@ public class User {
 		
 	}
 	
-	public User(String Userid,String Username,String Userpassword,String Usertelephone) {
+	public User(String Userid,String Username,String Userpassword,String Usertelephone,String Userbalance) {
 		this.Userid=Userid;
 		this.Username=Username;
 		this.Userpassword=Userpassword;
 		this.Usertelephone=Usertelephone;
+		this.Userbalance=Userbalance;
+	}
+	
+	public User(String userbalance) {
+		this.Userbalance=userbalance;
 	}
 
 	public String getUsername() {
@@ -44,11 +49,11 @@ public class User {
 		Userpassword = userpassword;
 	}
 
-	public int getUserbalance() {
+	public String getUserbalance() {
 		return Userbalance;
 	}
 
-	public void setUserbalance(int userbalance) {
+	public void setUserbalance(String userbalance) {
 		Userbalance = userbalance;
 	}
 

@@ -259,10 +259,12 @@ public class acselect extends javax.swing.JFrame{
 		        JF5.setText(list.remove(0) + "");
 		        JF6.setText(list.remove(0) + "");
 		        JF7.setText(list.remove(0) + "");
+		        
 		    } 
 		}
 
 
+//確定監視器
  class acselect_ok_actionAdapter implements ActionListener{
 
 	 private final acselect adaptee;
@@ -284,6 +286,7 @@ public class acselect extends javax.swing.JFrame{
 	}
  }
  
+ //退出
  class acselect_exit_actionAdapter implements ActionListener{
 
 	 private final acselect adaptee;

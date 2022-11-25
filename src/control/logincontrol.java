@@ -41,6 +41,9 @@ public class logincontrol  implements Control{
         return result;
     }
     
+    
+    
+    
     public void insert(Object o) throws SQLException {
         if (o.getClass() == User.class) {
             User user = (User) o;
@@ -50,5 +53,13 @@ public class logincontrol  implements Control{
             pre.setString(2, user.getUserpassword());
             pre.execute();
         }
-    }  
+    }
+
+	@Override
+	public boolean update(Object _if, Object _new) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}  
+    
+    
 }

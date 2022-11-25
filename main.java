@@ -13,21 +13,23 @@ import GUI.information;
 import GUI.login;
 import GUI.recharge;
 import GUI.register;
+import maGUI.openticket;
+import manager.manager;
 import sql.connectSQL;
 
 public class main {
 	public static void main(String[] args) throws PropertyVetoException, SQLException {
-/*		connectSQL c = new connectSQL();
+		connectSQL c = new connectSQL();
 		Connection cc = c.getCon();
 		String sql = "select * from Account";
         PreparedStatement pre = cc.prepareStatement(sql);
         ResultSet rest = pre.executeQuery();
         rest.next();
 		System.out.println(rest.getString("username"));
-*/
+
 		
-		information in = new information();
-		in.setVisible(true);
-		
+		openticket op=new openticket();
+		op.setVisible(true);
+		System.out.println("Hello");
 }
 }

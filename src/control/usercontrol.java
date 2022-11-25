@@ -62,7 +62,8 @@ public class usercontrol implements Control{
 	            User u = new User(rest.getString("userid"),
 	                    rest.getString("username"),
 	                    rest.getString("userpassowrd"),
-	                    rest.getString("usertelephone"));
+	                    rest.getString("usertelephone"),
+	                    rest.getString("userbalance"));
 	            users.add(u);
 
 	        }
@@ -83,7 +84,8 @@ public class usercontrol implements Control{
 	            User u = new User(rest.getString("userid"),
 	                    rest.getString("username"),
 	                    rest.getString("userpassword"),
-	                    rest.getString("usertelephone"));
+	                    rest.getString("usertelephone"),
+	                    rest.getString("userbalance"));
 	            users.add(u);
 	        }
 	        return users;
@@ -95,12 +97,13 @@ public class usercontrol implements Control{
 	    }
 	    
 	    private void insert(User s) throws SQLException {
-	        String sql = "insert into Account(userid,username,userpassword,usertelephone)values(?,?,?,?)";
+	        String sql = "insert into Account(userid,username,userpassword,usertelephone,userbalance)values(?,?,?,?,?)";
 	        PreparedStatement psr = con.prepareStatement(sql);
 	        psr.setString(1, s.getUserid());
 	        psr.setString(2, s.getUsername());
 	        psr.setString(3, s.getUserpassword());
 	        psr.setString(4, s.getUsertelephone());
+	        psr.setString(5, s.getUserbalance());
 	        psr.execute();
 	        
 	        String sql2="insert into loginuser(userid,userpassword)values(?,?)";
@@ -109,4 +112,11 @@ public class usercontrol implements Control{
 	        pst.setString(2, s.getUserpassword());
 	        pst.execute();
 	    }
+
+		@Override
+		public boolean update(Object _if, Object _new) throws SQLException {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
 }

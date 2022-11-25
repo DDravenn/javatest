@@ -17,7 +17,6 @@ public class MainFrame extends javax.swing.JFrame {
 		
 	JPanel welcome_JPanel=new JPanel();
 	JButton acbytk_JButton=new JButton();
-	JButton hibytk_JButton=new JButton();
 	JButton exit_JButton=new JButton();
 	JButton info_JButton=new JButton();
 	
@@ -35,7 +34,6 @@ public class MainFrame extends javax.swing.JFrame {
 		
 		welcome_JPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("欢迎使用彩票购买程序"));
 		acbytk_JButton.setText("开始选票");
-		hibytk_JButton.setText("历史购票");
 		exit_JButton.setText("退出程序");
 		info_JButton.setText("个人信息");
 		
@@ -43,9 +41,6 @@ public class MainFrame extends javax.swing.JFrame {
 		acbytk_JButton.setBounds(new Rectangle(210, 60, 150, 40));
 		acbytk_JButton.addActionListener(new MainFrame_acbytk_JButton_actionAdapter(this));
 		
-		hibytk_JButton.setFont(new Font("黑体",Font.BOLD,15));
-		hibytk_JButton.setBounds(new Rectangle(210, 130, 150, 40));
-		hibytk_JButton.addActionListener(new MainFrame_hibytk_JButton_actionAdapter(this));
 		
 		exit_JButton.setFont(new Font("黑体",Font.BOLD,15));
 		exit_JButton.setBounds(new Rectangle(210, 270, 150, 40));
@@ -56,7 +51,6 @@ public class MainFrame extends javax.swing.JFrame {
 		info_JButton.addActionListener(new MainFrame_info_JButton_actionAdapter(this));
 		
 		welcome_JPanel.add(acbytk_JButton);
-		welcome_JPanel.add(hibytk_JButton);
 		welcome_JPanel.add(exit_JButton);
 		welcome_JPanel.add(info_JButton);
 	}
@@ -67,9 +61,6 @@ public class MainFrame extends javax.swing.JFrame {
 			this.dispose();
 	}
 	
-	public void MainFrame_hibytk_JButton_actionPerformed(ActionEvent e) throws PropertyVetoException, SQLException{
-		
-	}
 	
 	public void MainFrame_exit_JButton_actionPerformed(ActionEvent e) throws PropertyVetoException, SQLException{
 		System.exit(0);
@@ -103,26 +94,6 @@ public class MainFrame extends javax.swing.JFrame {
 		}
 	}
 	
-	
-	class MainFrame_hibytk_JButton_actionAdapter implements ActionListener{
-		private final MainFrame adaptee;
-		
-		MainFrame_hibytk_JButton_actionAdapter(MainFrame adaptee){
-			this.adaptee=adaptee;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			try {
-				adaptee.MainFrame_hibytk_JButton_actionPerformed(e);
-			}catch(PropertyVetoException ex) {
-					throw new RuntimeException(ex);
-				}catch(SQLException ex) {
-					throw new RuntimeException(ex);
-				}
-			}
-		}
 	
 	class MainFrame_exit_JButton_actionAdapter implements ActionListener{
 		private final MainFrame adaptee;
