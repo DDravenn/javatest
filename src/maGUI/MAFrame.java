@@ -33,6 +33,7 @@ public class MAFrame extends javax.swing.JFrame{
 			welcome_JPanel.setLayout(null);
 			setSize(new Dimension(600,500));
 			setTitle("欢迎进入管理员界面");
+			setLocation(400,150);
 			
 			welcome_JPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("欢迎进入管理员界面"));
 			

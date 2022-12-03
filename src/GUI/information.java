@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import control.Control;
+import control.infocontrol;
 import control.logincontrol;
 import control.usercontrol;
 import user.Loginuser;
@@ -33,25 +34,25 @@ public class information extends javax.swing.JFrame{
 	JLabel pwd2=new JLabel();
 	JButton re=new JButton();
 	JButton quit=new JButton();
-	
-	public information() throws PropertyVetoException, SQLException {
-
+	String oldid;
+	public information(String id) throws PropertyVetoException, SQLException {
+		this.oldid=id;
+		this.id2.setText(id);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         initComponents();
     }
-	
 	private void initComponents() throws SQLException, PropertyVetoException {
-		Control control=usercontrol.getInstance();
-		List<User> user = control.read(id1.getText().toString().trim());
-		String id= user.get(0).getUserid();
-		String name= user.get(0).getUsername();
-		String telephone= user.get(0).getUsertelephone();
-		String balance= user.get(0).getUserbalance();
+		Control control=infocontrol.getInstance();
+		List<User> user = control.read(oldid);
 		
-
+		String id= user.get(0).getUserid();
+		String name=user.get(0).getUsername();
+		String phone=user.get(0).getUsertelephone();
+		String balance=user.get(0).getUserbalance();
 		welcome_JPanel=(JPanel) getContentPane();
 		welcome_JPanel.setLayout(null);
 		setSize(new Dimension(400,500));
+		setLocation(400,150);
 		setTitle("个人信息界面");
 		welcome_JPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("个人信息表"));
 		
@@ -64,7 +65,7 @@ public class information extends javax.swing.JFrame{
 		
 		id2.setText(id);
 		name2.setText(name);
-		phone2.setText(telephone);
+		phone2.setText(phone);
 		balance2.setText(balance);
 		
 		id1.setFont(new Font("黑体",Font.BOLD,15));
@@ -114,7 +115,7 @@ public class information extends javax.swing.JFrame{
 	}
 	
 public void information_re_actionPerformed(ActionEvent e) throws PropertyVetoException, SQLException{
-		recharge rec = new recharge();
+		recharge rec = new recharge("123");
 		rec.setVisible(true);
 		this.dispose();
 	}
@@ -122,7 +123,7 @@ public void information_re_actionPerformed(ActionEvent e) throws PropertyVetoExc
 
 
 public void information_quit_actionPerformed(ActionEvent e) throws PropertyVetoException, SQLException{
-	MainFrame ma=new MainFrame();
+	MainFrame ma=new MainFrame("123");
 	ma.setVisible(true);
 	this.dispose();
 	}

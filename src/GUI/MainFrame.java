@@ -13,15 +13,19 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import control.Control;
+import control.logincontrol;
+
 public class MainFrame extends javax.swing.JFrame {
 		
 	JPanel welcome_JPanel=new JPanel();
 	JButton acbytk_JButton=new JButton();
 	JButton exit_JButton=new JButton();
 	JButton info_JButton=new JButton();
-	
-	public MainFrame() throws PropertyVetoException, SQLException {
-
+	String oldid;
+	public MainFrame(String id) throws PropertyVetoException, SQLException {
+        Control control = logincontrol.getInstance();
+        this.oldid=id;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         initComponents();
     }
@@ -31,6 +35,7 @@ public class MainFrame extends javax.swing.JFrame {
 		welcome_JPanel.setLayout(null);
 		setSize(new Dimension(700,500));
 		setTitle("欢迎进入彩票购买程序");
+		setLocation(400,150);
 		
 		welcome_JPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("欢迎使用彩票购买程序"));
 		acbytk_JButton.setText("开始选票");
@@ -56,7 +61,7 @@ public class MainFrame extends javax.swing.JFrame {
 	}
 	
 	public void MainFrame_acbytk_JButton_actionPerformed(ActionEvent e) throws PropertyVetoException, SQLException{
-			acselect ac=new acselect();
+			acselect ac=new acselect("123");
 			ac.setVisible(true);
 			this.dispose();
 	}
@@ -67,7 +72,7 @@ public class MainFrame extends javax.swing.JFrame {
 	}
 	
 	public void MainFrame_info_JButton_actionPerformed(ActionEvent e) throws PropertyVetoException, SQLException{
-		information in =new information();
+		information in =new information("123");
 		in.setVisible(true);
 		this.dispose();
 	}

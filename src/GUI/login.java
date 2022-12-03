@@ -33,9 +33,10 @@ public class login extends javax.swing.JFrame {
 	JButton register_button=new JButton();
 	JButton exit_button=new JButton();
 	Control control = logincontrol.getInstance();
-
-	
-	public  login() throws PropertyVetoException, SQLException {
+	String oldid;
+	 
+	public  login(String id) throws PropertyVetoException, SQLException {
+		this.oldid=id;
         try {
             setDefaultCloseOperation(EXIT_ON_CLOSE);
             initComponents();
@@ -50,6 +51,7 @@ public class login extends javax.swing.JFrame {
 		 jPanel_welcome.setLayout(null);
 	        setSize(new Dimension(400, 500));
 	        setTitle("欢迎使用彩票购买程序");
+	        setLocation(400,150);
 		
 	    jPanel_welcome.setBorder(javax.swing.BorderFactory.createTitledBorder("彩票登录界面"));
 		jlabel_id.setText("用户id");
@@ -97,24 +99,25 @@ public class login extends javax.swing.JFrame {
 	        else {
 	            List<Loginuser> loginuser = control.read(new Loginuser(id_textField.getText(), pwd_textField.getText()));
 	            	Loginuser u = loginuser.get(0);
-	            	if (loginuser.size() > 0) { //判断取回的数据是否爲空
-	            		if(u.getUserid()=="1122" && u.getUserpassword()=="123") {
+            	if (loginuser.size() > 0) { //判断取回的数据是否爲空
+            		if(u.getUserid().equals("9999") && u.getUserpassword().equals("1234")) {
 	            			MAFrame me=new MAFrame();
 	            			me.setVisible(true);
 	            			this.dispose();
-	            	}else {
-	            		MainFrame ma = new MainFrame();
-		                ma.setVisible(true);
+            		}else {
+            			MainFrame ma = new MainFrame(oldid);
+            			ma.setVisible(true);
 		                ma.validate();
 		                this.dispose();
-	            	}
-	                
-	            }else{
-	                JOptionPane.showMessageDialog(this, "用户名或密码错误！", "Warning",
-	                        JOptionPane.INFORMATION_MESSAGE);
+            			}
+//            		if()
+            		
+            		}else{
+	                JOptionPane.showMessageDialog(this, "数据库中无数据！", "Warning",JOptionPane.INFORMATION_MESSAGE);
 	            }
+            	
 	        }
-		}
+	}
 		
 		
 		

@@ -10,23 +10,24 @@ public class Loginuser {
 		this.Userpassword=Userpassword;
 	}
 	
-	
-
-
-	public String getUserid() {
-		return Userid;
-	}
-
-	public void setUserid(String userid) {
-		Userid = userid;
-	}
-
 	public String getUserpassword() {
-		return Userpassword;
+		return Userpassword.trim();
 	}
-
+	
+	public String getUserid() {
+		return Userid.trim();
+	}
 	public void setUserpassword(String userpassword) {
 		Userpassword = userpassword;
+	}
+	public void setUserid(String userid) {
+	Userid = userid;
+		}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.Userid+","+this.Userpassword;
 	}
 
 	

@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.beans.PropertyVetoException;
 import java.sql.SQLException;
 
@@ -52,10 +54,11 @@ public class register extends javax.swing.JFrame {
 	
 	
 	private void initComponents() {
+		setLocation(400,150);
 		ix_Panel = (JPanel) getContentPane();
         ix_Panel.setLayout(null);
 		setSize(new Dimension(400, 500));
-		 setTitle("欢迎注册彩票系统");
+		setTitle("欢迎注册彩票系统");
 		ix_Panel.setBorder(javax.swing.BorderFactory.createTitledBorder("用户注册界面"));
 		
 		balance_JLabel.setText("余额:");
@@ -99,6 +102,16 @@ public class register extends javax.swing.JFrame {
 		rn_button.addActionListener(new register_rn_button_actionAdapter(this));
 		point_JOptionPane.setBounds(new Rectangle(50, 263, 262, 90));
         point_JOptionPane.setLayout(null);
+        
+        //判断电话文本框输入的是否为数字
+        phone_textField.addKeyListener(new java.awt.event.KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+        		char ch=e.getKeyChar();
+        		if(!(ch>='0'&& ch<='9')) {
+        			e.consume();
+        		}
+        	}
+        });
 		
 		
 		ix_Panel.add(id_JLabel);
@@ -118,9 +131,12 @@ public class register extends javax.swing.JFrame {
 	
 	public void register_rn_button_actionPerformed(ActionEvent e) throws PropertyVetoException, SQLException{
 
-		login ln=new login();
+		login ln=new login("");
 		ln.setVisible(true);
 		this.dispose();
+		
+
+		
 	}
 	//注册
 	
@@ -145,6 +161,9 @@ public class register extends javax.swing.JFrame {
 			JOptionPane.showMessageDialog(this, "请输入手机号！","Warning",JOptionPane.INFORMATION_MESSAGE);
 		}
 		else if(phone_textField.getText().length()>11) {
+			JOptionPane.showMessageDialog(this, "请输入完整的11位手机号！", "Warning", JOptionPane.INFORMATION_MESSAGE);
+		}
+		else if(phone_textField.getText().length()<11){
 			JOptionPane.showMessageDialog(this, "请输入完整的11位手机号！", "Warning", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else {

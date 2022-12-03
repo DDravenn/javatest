@@ -43,6 +43,7 @@ public class seeuser extends javax.swing.JFrame{
 		welcome_JPanel.setLayout(new FlowLayout());
 		setSize(new Dimension(700,500));
 		setTitle("人员信息界面");
+		setLocation(400,150);
 		
 		JL1.setText("所有人员信息");
 		JL1.setBounds(new Rectangle(350,10,200,30));

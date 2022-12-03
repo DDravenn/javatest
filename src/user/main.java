@@ -30,13 +30,34 @@ public class main {
 		System.out.println(rest.getString("username"));
 */
 		
-		//MAFrame ma=new MAFrame();
-		//ma.setVisible(true);
+//		MAFrame ma=new MAFrame();
+//		ma.setVisible(true);
+//		
+//		seeuser se=new seeuser();
+//		se.setVisible(true);
+//		
+//		recharge re=new recharge();
+//		re.setVisible(true);
 		
-		//seeuser se=new seeuser();
-		//se.setVisible(true);
-		
-		login ln=new login();
+		login ln=new login("");
 		ln.setVisible(true);
+		
+//		information ma=new information();
+//		ma.setVisible(true);
+		
+//		openticket op = new openticket();
+//		op.setVisible(true);
+//		
+//		String str="1,2,3,4,5,6,7";
+//		String []s=new String[7];
+//		s=str.split(",");
+//		for(int i=0;i<s.length;i++) {
+//			System.out.println(s[i]);
+//		}
+		
+		
+//		acselect ac =new acselect("123");
+//		ac.setVisible(true);
+
 }
 }

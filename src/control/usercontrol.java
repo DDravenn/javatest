@@ -31,43 +31,30 @@ public class usercontrol implements Control{
 	  //读取
 	    public List<User> read(Object o) throws SQLException{
 	        if (o == null) {
-	            return read(null);
-	        } else if (o.getClass() == Long.class) {
-	            return read((long) o);
-	        } else if (o.getClass() == String.class) {
+	            return read();
+	        }else if (o.getClass() == String.class) {
 	            return read((String) o);
 	        }
 	        return null;
 	    }
 	    
-	    private List<Loginuser> read() throws SQLException {
+
+	    
+	    private List<User> read() throws SQLException {
 	        String sql = "select * from Account";
 	        PreparedStatement pre = con.prepareStatement(sql);
 	        ResultSet rest = pre.executeQuery();
-	        List<Loginuser> users = new ArrayList<>();
+	        List<User> students = new ArrayList<>();
 	        while (rest.next()) {
-	            Loginuser lu = new Loginuser(rest.getString("userid"),
-	                    rest.getString("userpassowrd"));
-	            users.add(lu);
-
-	        }
-	        return users;
-	    }
-	    private List<User> read2() throws SQLException {
-	        String sql = "select * from loginuser";
-	        PreparedStatement prq = con.prepareStatement(sql);
-	        ResultSet rest = prq.executeQuery();
-	        List<User> users = new ArrayList<>();
-	        while (rest.next()) {
-	            User u = new User(rest.getString("userid"),
+	        	User s = new User(rest.getString("userid"),
 	                    rest.getString("username"),
-	                    rest.getString("userpassowrd"),
+	                    rest.getString("userpassword"),
 	                    rest.getString("usertelephone"),
 	                    rest.getString("userbalance"));
-	            users.add(u);
+	            students.add(s);
 
 	        }
-	        return users;
+	        return students;
 	    }
 	    
 	    private List<User> read(String userid) throws SQLException{
@@ -113,10 +100,19 @@ public class usercontrol implements Control{
 	        pst.execute();
 	    }
 
-		@Override
-		public boolean update(Object _if, Object _new) throws SQLException {
-			// TODO Auto-generated method stub
-			return false;
-		}
+	    public boolean update(Object _old, Object _new) throws SQLException {
+	        User newuser = (User) _new;
+	        User olduser = (User) _old;
+	        return update(olduser, newuser);
+	    }
 
+	    private boolean update(User olduser, User _new) throws SQLException {
+	    	System.out.println(olduser);
+	    	System.out.println(_new);
+	        String sql = "update Account set userbalance=?  where userid=?";
+	        PreparedStatement pre = con.prepareStatement(sql);
+	        pre.setString(1,_new.getUserbalance());
+	        pre.setString(2, olduser.getUserid());
+	        return pre.execute();
+	    }
 }

@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
 import java.beans.Statement;
 import java.sql.Connection;
@@ -13,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.JButton;
@@ -21,18 +23,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import control.Control;
+import control.infocontrol;
+import control.ticontrol;
+import control.usercontrol;
+import sql.connectSQL;
 import user.User;
+import user.buyTicket;
 
 
 public class acselect extends javax.swing.JFrame{
-	
-	private String url = "jdbc:mysql://localhost:1433/message?useUnicode=true&characterEncoding=GBK&useSSL=false";
-	private String userName = "sa";
-	private String password = "czy6220303";
-	private String driverName = "com.mysql.jdbc.Driver";
-	private static Connection connection = null;
-	private static Statement statement = null;
-	private static ResultSet resultSet = null;
+	connectSQL c = new connectSQL();
+	Connection con = connectSQL.getCon();
+
 		
 	JPanel welcome_JPanel=new JPanel();
 		JLabel tip=new JLabel();
@@ -61,8 +64,14 @@ public class acselect extends javax.swing.JFrame{
 		JButton exit=new JButton();
 		JButton Bill=new JButton();
 		JButton ran=new JButton();
+		String oldid;
+		String balance;
 	
-		public  acselect() throws PropertyVetoException, SQLException {
+		public  acselect(String userid) throws PropertyVetoException, SQLException {
+			Control control=infocontrol.getInstance();
+			List<User> user = control.read(oldid);
+			this.oldid=userid;
+			this.balance=user.get(0).getUserbalance();
 	        try {
 	            setDefaultCloseOperation(EXIT_ON_CLOSE);
 	            initComponents();
@@ -72,6 +81,10 @@ public class acselect extends javax.swing.JFrame{
 	    }
 		
 		private void initComponents() throws Exception {
+			
+			
+			
+			setLocation(400,150);
 			 welcome_JPanel = (JPanel) getContentPane();
 			 welcome_JPanel.setLayout(null);
 		        setSize(new Dimension(600, 500));
@@ -92,6 +105,8 @@ public class acselect extends javax.swing.JFrame{
 		        wr.setText("注意:每注5元!");
 		        ran.setText("随机选号");
 		        Bill.setText("计算金额");
+		        BillField.setEditable(false);
+
 		        
 		        tip.setFont(new Font("黑体",Font.BOLD,15));
 		        tip.setBounds(new Rectangle(70,40,300,25));
@@ -166,6 +181,80 @@ public class acselect extends javax.swing.JFrame{
 		        ran.setBounds(new Rectangle(10,300,120,30));
 		        ran.addActionListener(new acselect_ran_actionAdapter(this));
 		        
+		      //判断文本框输入的是否为数字
+		        JF1.addKeyListener(new java.awt.event.KeyAdapter() {
+		        	public void keyTyped(KeyEvent e) {
+		        		char ch=e.getKeyChar();
+		        		if(!(ch>='0'&& ch<='9')) {
+		        			e.consume();
+		        		}
+		        	}
+		        });
+		        
+		      //判断文本框输入的是否为数字
+		        JF2.addKeyListener(new java.awt.event.KeyAdapter() {
+		        	public void keyTyped(KeyEvent e) {
+		        		char ch=e.getKeyChar();
+		        		if(!(ch>='0'&& ch<='9')) {
+		        			e.consume();
+		        		}
+		        	}
+		        });
+		      //判断文本框输入的是否为数字
+		        JF3.addKeyListener(new java.awt.event.KeyAdapter() {
+		        	public void keyTyped(KeyEvent e) {
+		        		char ch=e.getKeyChar();
+		        		if(!(ch>='0'&& ch<='9')) {
+		        			e.consume();
+		        		}
+		        	}
+		        });
+		      //判断文本框输入的是否为数字
+		        JF4.addKeyListener(new java.awt.event.KeyAdapter() {
+		        	public void keyTyped(KeyEvent e) {
+		        		char ch=e.getKeyChar();
+		        		if(!(ch>='0'&& ch<='9')) {
+		        			e.consume();
+		        		}
+		        	}
+		        });
+		      //判断文本框输入的是否为数字
+		        JF5.addKeyListener(new java.awt.event.KeyAdapter() {
+		        	public void keyTyped(KeyEvent e) {
+		        		char ch=e.getKeyChar();
+		        		if(!(ch>='0'&& ch<='9')) {
+		        			e.consume();
+		        		}
+		        	}
+		        });
+		      //判断文本框输入的是否为数字
+		        JF6.addKeyListener(new java.awt.event.KeyAdapter() {
+		        	public void keyTyped(KeyEvent e) {
+		        		char ch=e.getKeyChar();
+		        		if(!(ch>='0'&& ch<='9')) {
+		        			e.consume();
+		        		}
+		        	}
+		        });
+		      //判断文本框输入的是否为数字
+		        JF7.addKeyListener(new java.awt.event.KeyAdapter() {
+		        	public void keyTyped(KeyEvent e) {
+		        		char ch=e.getKeyChar();
+		        		if(!(ch>='0'&& ch<='9')) {
+		        			e.consume();
+		        		}
+		        	}
+		        });
+		      //判断文本框输入的是否为数字
+		        xiazhu.addKeyListener(new java.awt.event.KeyAdapter() {
+		        	public void keyTyped(KeyEvent e) {
+		        		char ch=e.getKeyChar();
+		        		if(!(ch>='0'&& ch<='9')) {
+		        			e.consume();
+		        		}
+		        	}
+		        });
+		        
 		        welcome_JPanel.add(JF1);
 		        welcome_JPanel.add(JF2);
 		        welcome_JPanel.add(JF3);
@@ -194,47 +283,73 @@ public class acselect extends javax.swing.JFrame{
 		public void ok_actionPerformed(ActionEvent e)throws PropertyVetoException, SQLException {
 				 if(BillField.getText().length() != 0){
 		            ArrayList<Integer> list = new ArrayList<>();
-		            int[] notes = new int[7];
-		            notes[0] = Integer.parseInt(JF1.getText());
-		            notes[1] = Integer.parseInt(JF2.getText());
-		            notes[2] = Integer.parseInt(JF3.getText());
-		            notes[3] = Integer.parseInt(JF4.getText());
-		            notes[4] = Integer.parseInt(JF5.getText());
-		            notes[5] = Integer.parseInt(JF6.getText());
-		            notes[6] = Integer.parseInt(JF7.getText());
-		            for (int i = 0; i < notes.length; i++) {
-		                if(notes[i]<1 || notes[i]>36){
-		                    JOptionPane.showMessageDialog(null, "请输入<1,36>范围的数！");
-		                }else if(!list.contains(notes[i])){
-		                    list.add(notes[i]);
-		                }
+		         
+		            String ticket[] =new String[7];
+		            ticket[0] = JF1.getText();
+		            ticket[1] = JF2.getText();
+		            ticket[2] = JF3.getText();
+		            ticket[3] = JF4.getText();
+		            ticket[4] = JF5.getText();
+		            ticket[5] = JF6.getText();
+		            ticket[6] = JF7.getText();
+
+		            
+	         
+		            for (int i = 0; i < ticket.length; i++) {
+		                if(Integer.valueOf(ticket[i])<1 ||Integer.valueOf(ticket[i])>36){
+		                    JOptionPane.showMessageDialog(null, "请输入<1,36>范围的数！"); 
+		            }
+		            
+		            
+		            if(BillField.getText().length()==0) {
+		            	JOptionPane.showMessageDialog(null, "请先计算金额！");
 		            }
 		            if(list.size() < 7){
 		                JOptionPane.showMessageDialog(null, "请勿输入重复数字！");
 		            }
-		            User.setNotes(notes);}
-		           User.setNum(Integer.parseInt(xiazhu.getText()));
-		}
-		           
+		        }
+
+//		            if(Integer.valueOf(u.get(0).getUserbalance())-Integer.valueOf(BillField.getText())<0) {
+//		            	JOptionPane.showMessageDialog(null, "余额不足");
+//		            }else {}
+		            
+	            	Control control = ticontrol.getInstance();
+		            Control control2= usercontrol.getInstance();
+		            List<User> u =control2.read(oldid);
+		            buyTicket b =new buyTicket(oldid, ticket,xiazhu.getText(),"");
+	            	control.insert(b);
+	            	control2.update(new User(oldid,"","","",""),
+							new User(String.valueOf(Integer.valueOf(u.get(0).getUserbalance())-Integer.valueOf(BillField.getText().toString().trim()))));
+
+		           JOptionPane.showMessageDialog(null, "购买成功！");
+		            JF1.setText("");
+			        JF2.setText("");
+			        JF3.setText("");
+			        JF4.setText("");
+			        JF5.setText("");
+			        JF6.setText("");
+			        JF7.setText("");
+			        BillField.setText("");
+			        }
+				 }
 		
+
 		public void exit_actionPerformed(ActionEvent e)throws PropertyVetoException, SQLException {
-			MainFrame ma=new MainFrame();
+			MainFrame ma=new MainFrame("");
 			ma.setVisible(true);
 			this.dispose();
 		}
 		
 		
 		public void Bill_actionPerformed(ActionEvent e)throws PropertyVetoException, SQLException {
-			int times = Integer.parseInt(xiazhu.getText());
 	        if(JF1.getText().length()==0 || JF2.getText().length()==0 || 
 	                JF3.getText().length()==0 || JF4.getText().length()==0 || 
 	                JF5.getText().length()==0 || JF6.getText().length()==0 || 
-	                JF7.getText().length()==0){
+	                JF7.getText().length()==0 || xiazhu.getText().length()==0){
 	            JOptionPane.showMessageDialog(null, "请输入有效号码！");
 	        } else {
+				int times = Integer.parseInt(xiazhu.getText());
 	            int bill = 5 * times;
-	            User.setNum(User.getNum() + times);
-	            System.out.println(User.getNum());
 	            BillField.setText(bill + "");
 	        }
 	    }       
@@ -250,6 +365,7 @@ public class acselect extends javax.swing.JFrame{
 		                } else continue;
 		                i++;
 		        }
+		        random.setSeed(0);
 		        System.out.println(list.size());
 
 		        JF1.setText(list.remove(0) + "");

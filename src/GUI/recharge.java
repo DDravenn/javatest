@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.lang.*;
 
 import javax.swing.JButton;
@@ -19,7 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import control.Control;
-import control.rechargecontrol;
+import control.usercontrol;
 import sql.connectSQL;
 import user.User;
 
@@ -32,12 +33,13 @@ public class recharge extends javax.swing.JFrame {
 		JTextField JT1=new JTextField();
 		JButton rec=new JButton();
 		JButton quit=new JButton();
-		private final User old;
+		String oldid;
+		Control control=usercontrol.getInstance();
+		List<User> user = control.read(oldid);
 		
-
-		
-		public recharge()throws PropertyVetoException, SQLException {
-			this.old = new User();
+		String balance=user.get(0).getUserbalance();
+		public recharge(String userid)throws PropertyVetoException, SQLException {
+			this.oldid=userid;
 			try {
 	            setDefaultCloseOperation(EXIT_ON_CLOSE);
 	            initComponents();
@@ -45,20 +47,16 @@ public class recharge extends javax.swing.JFrame {
 	            exception.printStackTrace();
 	        }
 	    }
-		
-		public recharge(User old)throws PropertyVetoException, SQLException{
-			this.old=old;
-		}
-		
 		private void initComponents() {
 			welcome_JPanel = (JPanel) getContentPane();
 	        welcome_JPanel.setLayout(null);
 			setSize(new Dimension(400, 500));
 			 setTitle("充值界面");
+			 setLocation(400,150);
 			 welcome_JPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("用户充值界面"));
 			 
 			 JL1.setText("当前余额为:");
-			 JL2.setText("qwe");
+			 JL2.setText(balance);
 			 JL3.setText("需要充值多少:");
 			 rec.setText("确认");
 			 quit.setText("返回");
@@ -94,20 +92,21 @@ public class recharge extends javax.swing.JFrame {
 		//返回个人信息界面
 		public void recharge_quit_actionPerformed(ActionEvent e) throws PropertyVetoException, SQLException{
 
-			information in=new information();
+			information in=new information("123");
 			in.setVisible(true);
 			this.dispose();
 		}
 		
 		//充值操作
 		public void recharge_rec_actionPerformed(ActionEvent e) throws PropertyVetoException, SQLException{
-			Control control= rechargecontrol.getInstance();
+			Control control= usercontrol.getInstance();
 			
 			if (JT1.getText().trim().equals("")) {
 	            JOptionPane.showMessageDialog(this, "请输入需要充值的数目！", "提 示", JOptionPane.INFORMATION_MESSAGE);
 	        } else {
 	            try {
-	                control.update(old, new User(JT1.getText().trim()));
+	                control.update(new User(oldid,"","","",""), new User(String.valueOf
+							(Integer.valueOf(JL2.getText().toString())+Integer.valueOf(JT1.getText().toString().trim()))));
 	                JT1.setText("");
 	                JOptionPane.showMessageDialog(this, "充值成功！", "提 示", JOptionPane.INFORMATION_MESSAGE);
 	            } catch (SQLException ex) {

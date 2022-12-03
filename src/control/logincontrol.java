@@ -26,6 +26,8 @@ public class logincontrol  implements Control{
 
     }
     
+ 
+    
     public List read(Object o) throws SQLException {
         Loginuser user = (Loginuser) o;
         List<Loginuser> result = new ArrayList<>();
@@ -41,7 +43,20 @@ public class logincontrol  implements Control{
         return result;
     }
     
-    
+    private List<Loginuser> read(String userid) throws SQLException {
+        String sql = "select * from loginuser where userid=?";
+        PreparedStatement pre = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        pre.setString(1, userid);
+        ResultSet rest = pre.executeQuery();
+        List<Loginuser> loginusers = new ArrayList<>();
+        
+        while (rest.next()) {
+        	Loginuser u = new Loginuser(rest.getString("userid"),
+        			rest.getString("userpassword"));
+        	loginusers.add(u);
+        }
+        return loginusers;
+    }
     
     
     public void insert(Object o) throws SQLException {

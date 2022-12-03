@@ -1,18 +1,16 @@
 package user;
 
 public class User {
-	public String Userid;//用户id
-	public String Username;//用户名称
-	public String Userpassword;//用户密码
-	public String Userbalance;//账户余额
-	public String Usertelephone;//用户电话
-	public String money;//用来充值余额
-	private static int[] notes;//存彩票
-	private static int num = 0;//存下注数
+	public  String Userid;//用户id
+	public  String Username;//用户名称
+	public  String Userpassword;//用户密码
+	public  String Userbalance;//账户余额
+	public  String Usertelephone;//用户电话
+	public  String money;//用来充值余额
+
 	public User() {
 		
 	}
-	
 	public User(String Userid,String Username,String Userpassword,String Usertelephone,String Userbalance) {
 		this.Userid=Userid;
 		this.Username=Username;
@@ -25,51 +23,51 @@ public class User {
 		this.Userbalance=userbalance;
 	}
 
-	public String getUsername() {
+	public  String getUsername() {
 		return Username;
 	}
 
-	public void setUsername(String username) {
+	public  void setUsername(String username) {
 		Username = username;
 	}
 
-	public String getUserid() {
+	public  String getUserid() {
 		return Userid;
 	}
 
-	public void setUserid(String userid) {
+	public  void setUserid(String userid) {
 		Userid = userid;
 	}
 
-	public String getUserpassword() {
+	public  String getUserpassword() {
 		return Userpassword;
 	}
 
-	public void setUserpassword(String userpassword) {
-		Userpassword = userpassword;
+	public  void setUserpassword(String userpassword) {
+		this.Userpassword = userpassword;
 	}
 
-	public String getUserbalance() {
+	public  String getUserbalance() {
 		return Userbalance;
 	}
 
-	public void setUserbalance(String userbalance) {
+	public  void setUserbalance(String userbalance) {
 		Userbalance = userbalance;
 	}
 
-	public String getUsertelephone() {
+	public  String getUsertelephone() {
 		return Usertelephone;
 	}
 
-	public void setUsertelephone(String usertelephone) {
-		Usertelephone = usertelephone;
+	public   void setUsertelephone(String usertelephone) {
+		this.Usertelephone = usertelephone;
 	}
 	
-	public String getMoney() {
+	public   String getMoney() {
 		return money;
 	}
 
-	public void setMoney(String money) {
+	public  void setMoney(String money) {
 		this.money = money;
 	}
 
@@ -78,21 +76,6 @@ public class User {
 				+Userbalance+",用户电话:"+Usertelephone;
 	}
 
-	public static int[] getNotes() {
-		return notes;
-	}
-
-	public static void setNotes(int[] notes) {
-		User.notes = notes;
-	}
-
-	public static int getNum() {
-		return num;
-	}
-
-	public static void setNum(int num) {
-		User.num = num;
-	}
 
 
 

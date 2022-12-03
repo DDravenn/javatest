@@ -1,5 +1,6 @@
 package control;
 
+import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,24 +11,21 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
+import sql.connectSQL;
+
 public class hisdata {
 	// 得到数据库表数据
-			public static Vector getRows(){
-				String sql_url = "jdbc:sqlserver://localhost:1433;DatabaseName=byts;trustServerCertificate=true";	//数据库路径（一般都是这样写），test是数据库名称
-				String name = "sa";		//用户名
-				String password = "czy6220303";	//密码
-				Connection conn;
+			public static Vector getRows() throws PropertyVetoException, SQLException{
+				Connection con;
+				connectSQL source = new connectSQL();
+		        con = connectSQL.getCon();
 				PreparedStatement preparedStatement = null;
 		 
 				Vector rows = null;
 				Vector columnHeads = null;
 				
 				try {
-					Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");		//连接驱动
-					conn = DriverManager.getConnection(sql_url, name, password);	//连接数据库
-//					if(!conn.isClosed())
-//						System.out.println("成功连接数据库");
-					preparedStatement = conn.prepareStatement("select * from userticket");
+					preparedStatement = con.prepareStatement("select * from BUYticket");
 					ResultSet result1 = preparedStatement.executeQuery();
 					
 					if(result1.wasNull())
@@ -41,34 +39,24 @@ public class hisdata {
 						rows.addElement(getNextRow(result1,rsmd));
 					}
 					
-				} catch (ClassNotFoundException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					System.out.println("未成功加载驱动。");
-					e.printStackTrace();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					System.out.println("未成功打开数据库。");
 					e.printStackTrace();
 				}
 				return rows;
 			}
 
 			// 得到数据库表头
-			public static Vector getHead(){
-				String sql_url = "jdbc:sqlserver://localhost:1433;DatabaseName=byts;trustServerCertificate=true";;	//数据库路径（一般都是这样写），test是数据库名称
-				String name = "sa";		//用户名
-				String password = "czy6220303";	//密码
-				Connection conn;
+			public static Vector getHead() throws PropertyVetoException, SQLException{
+				Connection con;
+				connectSQL source = new connectSQL();
+		        con = connectSQL.getCon();
 				PreparedStatement preparedStatement = null;
 		 
 				Vector columnHeads = null;
 				
 				try {
-					Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");		//连接驱动
-					conn = DriverManager.getConnection(sql_url, name, password);	//连接数据库
-//					if(!conn.isClosed())
-//						System.out.println("成功连接数据库");
-					preparedStatement = conn.prepareStatement("select * from userticket");
+					preparedStatement = con.prepareStatement("select * from BUYticket");
 					ResultSet result1 = preparedStatement.executeQuery();
 					
 					boolean moreRecords = result1.next();
@@ -80,13 +68,9 @@ public class hisdata {
 					for(int i = 1; i <= rsmd.getColumnCount(); i++)
 						columnHeads.addElement(rsmd.getColumnName(i));
 					
-				} catch (ClassNotFoundException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					System.out.println("未成功加载驱动。");
-					e.printStackTrace();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					System.out.println("未成功打开数据库。");
 					e.printStackTrace();
 				}
 				return columnHeads;
@@ -96,7 +80,8 @@ public class hisdata {
 			private static Vector getNextRow(ResultSet rs,ResultSetMetaData rsmd) throws SQLException{
 				Vector currentRow = new Vector();
 				for(int i = 1; i <= rsmd.getColumnCount(); i++){
-					currentRow.addElement(rs.getString(i));
+//					currentRow.addElement(rs.getString(i));
+					currentRow.add(rs.getString(i));
 				}
 				return currentRow;
 			}
